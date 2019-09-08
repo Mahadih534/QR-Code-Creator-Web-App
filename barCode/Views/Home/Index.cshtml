@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<form style="margin-top: 24px;" action="../Home/GenerateQR" method="post">
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Name</label>
+        <input type="text" class="form-control" id="name" name="Name" aria-describedby="emailHelp" placeholder="Enter Your Name">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Phone No</label>
+        <input type="text" class="form-control" id="phone" name="Phone" aria-describedby="emailHelp" placeholder="Enter Email">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="email" name="Email" aria-describedby="emailHelp" placeholder="Enter Email">
+    </div>
+
+    <button style="width:100%;" id="btn" class="btn btn-primary" type="button">Submit</button>
+
+</form>
+
+<div id="imgSec" class=" container-fluid" style="display:none">
+
+    <div class="row" style="text-align:center">
+
+        <img style="border: 2px solid;margin-top:20px;" width="50%" height="" id="pic" />
+
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#btn").click(function () {
+
+                $.ajax({
+
+                    url: "../Home/GenerateQR",
+                    type: "POST",
+
+                    data: {
+                        Name: $("#name").val(),
+                        Phone: $("#phone").val(),
+                        Email: $("#email").val()
+                    },
+                    success: function (res) {
+                        if (res) {
+
+                            $("#imgSec").css('display', 'block');
+                            var base = window.location.origin+"/";
+                            $("#pic").attr('src', base+""+res.img);
+                          
+                           
+                            
+                        }
+                    }
+
+                });
+
+
+            });
+
+      });
+
+
+
+    </script>
+ 
+}
+
+
